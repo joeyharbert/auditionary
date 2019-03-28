@@ -1,0 +1,2 @@
+class AuditionDay < ApplicationRecord
+end
