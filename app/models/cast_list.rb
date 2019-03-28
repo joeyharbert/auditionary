@@ -1,0 +1,2 @@
+class CastList < Show
+end
