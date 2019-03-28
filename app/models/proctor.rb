@@ -1,0 +1,2 @@
+class Proctor < User
+end
