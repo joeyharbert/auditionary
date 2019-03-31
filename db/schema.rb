@@ -10,12 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_28_021341) do
+ActiveRecord::Schema.define(version: 2019_03_31_194239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "actor_show_roles", force: :cascade do |t|
+    t.integer "actor_id"
+    t.integer "show_role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "actors", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "audition_day_directors", force: :cascade do |t|
+    t.integer "audition_day_id"
+    t.integer "director_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "audition_day_proctors", force: :cascade do |t|
+    t.integer "audition_day_id"
+    t.integer "proctor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -27,6 +48,7 @@ ActiveRecord::Schema.define(version: 2019_03_28_021341) do
     t.integer "show_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "company_id"
   end
 
   create_table "cast_lists", force: :cascade do |t|
@@ -79,7 +101,6 @@ ActiveRecord::Schema.define(version: 2019_03_28_021341) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
     t.string "first_name"
     t.string "last_name"
     t.string "email"

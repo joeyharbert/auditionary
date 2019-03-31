@@ -1,3 +1,4 @@
 class Proctor < User
-  belongs_to :audition_day
+  has_many :audition_day_proctors
+  has_many :audition_days, through: :audition_day_proctors
 end
