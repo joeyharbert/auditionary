@@ -31,6 +31,10 @@ json.time_slots do
     json.id slot.id
     json.length slot.length
     json.sort slot.sort
-    json.actor_id slot.actor_id
+    json.actor do
+      if slot.actor
+        json.partial! "/api/users/user.json.jbuilder", user: slot.actor
+      end
+    end
   end
 end

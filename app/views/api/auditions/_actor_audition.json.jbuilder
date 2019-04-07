@@ -28,6 +28,11 @@ json.time_slots do
     json.id slot.id
     json.length slot.length
     json.sort slot.sort
-    json.actor_id slot.actor_id
+    json.actor do
+      if slot.actor
+        json.first_name slot.actor.first_name
+        json.last_name slot.actor.last_name
+      end
+    end
   end
 end
