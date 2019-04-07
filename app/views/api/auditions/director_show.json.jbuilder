@@ -1,1 +1,0 @@
-json.partial! "director_audition.json.jbuilder", audition: @audition

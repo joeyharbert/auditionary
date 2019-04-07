@@ -2,6 +2,7 @@ class Api::AuditionsController < ApplicationController
   def create
     if current_user && (current_user.type == "Director")
       audition = AuditionDay.new(
+        name: params[:name],
         length: params[:length],
         requirements: params[:requirements],
         show_id: params[:show_id],
@@ -41,18 +42,18 @@ class Api::AuditionsController < ApplicationController
   end
 
   def index
-    if current_user && (current_user.type == "Director")
-      @auditions = current_user.audition_days
-      render "director_index.json.jbuilder"      
+    if current_user
+      @auditions = AuditionDay.all
+      render "index.json.jbuilder"     
     else
       render json: {}, status: :unauthorized
     end
   end
 
   def show
-    if current_user && (current_user.type == "Director")
+    if current_user
       @audition = AuditionDay.find(params[:id])
-      render "director_show.json.jbuilder"      
+      render "show.json.jbuilder"     
     else
       render json: {}, status: :unauthorized
     end
