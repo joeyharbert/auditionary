@@ -1,15 +1,19 @@
 class Api::AuditionsController < ApplicationController
   def create
     if current_user && (current_user.type == "Director")
+      start_time = Time.parse(params[:start_time])
+      end_time = Time.parse(params[:end_time])
       audition = AuditionDay.new(
         name: params[:name],
-        length: params[:length],
+        length: end_time - start_time,
         requirements: params[:requirements],
         show_id: params[:show_id],
         active: false,
-        company_id: params[:company_id]
+        company_id: params[:company_id],
+        start_time: start_time,
+        end_time: end_time
         )
-      time_slot_length = params[:time_slot_length].to_i
+      time_slot_length = params[:time_slot_length].to_i * 60
       num_of_slots = audition.length / time_slot_length
       if audition.save
         AuditionDayDirector.create(
@@ -27,10 +31,14 @@ class Api::AuditionsController < ApplicationController
           end
         end
         num_of_slots.times do
+          end_time = start_time + time_slot_length
           TimeSlot.create(
               length: time_slot_length,
-              audition_day_id: audition.id
+              audition_day_id: audition.id,
+              start_time: start_time,
+              end_time: end_time
             )        
+          start_time = end_time
         end
         render json: {message: 'Auditon Day created successfully'}, status: :created
       else
