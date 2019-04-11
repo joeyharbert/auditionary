@@ -30,6 +30,8 @@ json.time_slots do
   json.array! audition.time_slots.each do |slot|
     json.id slot.id
     json.length slot.length
+    json.start_time slot.start_time
+    json.end_time slot.end_time
     json.sort slot.sort
     json.actor do
       if slot.actor
