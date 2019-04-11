@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     post '/auditions' => 'auditions#create'
     get '/auditions' => 'auditions#index'
     get '/auditions/:id' => 'auditions#show'
+    patch '/auditions/:id' => 'auditions#update'
 
     post '/shows' => 'shows#create'
     
