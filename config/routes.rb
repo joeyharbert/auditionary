@@ -6,9 +6,13 @@ Rails.application.routes.draw do
   namespace :api do
     post '/users' => 'users#create'
     post '/sessions' => 'sessions#create'
+
     post '/auditions' => 'auditions#create'
-    post '/shows' => 'shows#create'
     get '/auditions' => 'auditions#index'
     get '/auditions/:id' => 'auditions#show'
+
+    post '/shows' => 'shows#create'
+    
+    get '/time_slots/:id' => 'time_slots#show'
   end
 end
