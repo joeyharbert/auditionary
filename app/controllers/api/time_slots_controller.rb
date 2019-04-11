@@ -53,4 +53,15 @@ class Api::TimeSlotsController < ApplicationController
       render json: {errors: time_slot.errors.full_messages}, status: :unprocessable_entity
     end
   end
+
+  def destroy
+    time_slot = TimeSlot.find(params[:id])
+
+    if current_user && current_user.type != "Actor"
+      time_slot.destroy
+      render json: {message: "The timeslot has been deleted"}
+    else
+      render json: [], status: :unauthorized
+    end
+  end
 end

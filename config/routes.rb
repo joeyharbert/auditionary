@@ -15,5 +15,6 @@ Rails.application.routes.draw do
     
     get '/time_slots/:id' => 'time_slots#show'
     patch '/time_slots/:id' => 'time_slots#update'
+    delete '/time_slots/:id' => 'time_slots#destroy'
   end
 end
