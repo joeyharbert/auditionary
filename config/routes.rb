@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get '/auditions' => 'auditions#index'
     get '/auditions/:id' => 'auditions#show'
     patch '/auditions/:id' => 'auditions#update'
+    delete '/auditions/:id' => 'auditions#destroy'
 
     post '/shows' => 'shows#create'
     

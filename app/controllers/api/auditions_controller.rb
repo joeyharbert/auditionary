@@ -108,4 +108,14 @@ class Api::AuditionsController < ApplicationController
       render json: {}, status: :unauthorized
     end
   end
+
+  def destroy
+    audition = AuditionDay.find(params[:id])
+    if current_user && ((current_user.type == "Director") && audition.directors.include?(current_user))   #if logged in as a director and is one of the directors of the day then update
+      audition.destroy
+      render json: {message: "#{audition.name} successfully deleted"}
+    else
+      render json: {}, status: :unauthorized
+    end
+  end
 end
