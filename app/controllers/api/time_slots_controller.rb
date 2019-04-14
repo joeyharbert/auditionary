@@ -38,6 +38,7 @@ class Api::TimeSlotsController < ApplicationController
       time_slot.length = params[:length] || time_slot.length
       if current_user.type == "Director"
         time_slot.sort = params[:sort] || time_slot.sort
+        if ["cast"]
         time_slot.audition_day_id = params[:audition_day_id] || time_slot.audition_day_id
       end
 

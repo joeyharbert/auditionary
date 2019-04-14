@@ -26,4 +26,9 @@ class Api::ShowsController < ApplicationController
       render json: {}, status: :unauthorized
     end
   end
+
+  def index
+    @shows = Show.all
+    render 'index.json.jbuilder'
+  end
 end

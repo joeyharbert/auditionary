@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     patch '/auditions/:id' => 'auditions#update'
     delete '/auditions/:id' => 'auditions#destroy'
 
+    get '/shows' => 'shows#index'
     post '/shows' => 'shows#create'
     
     get '/time_slots/:id' => 'time_slots#show'
