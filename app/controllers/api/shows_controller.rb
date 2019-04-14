@@ -75,7 +75,7 @@ class Api::ShowsController < ApplicationController
       show.destroy
       render json: {message: "#{show.name} has been deleted."}
     else
-      render json: {}, status: :unauthorized                
+      render json: {}, status: :unauthorized
     end
 
   end
