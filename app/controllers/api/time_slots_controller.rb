@@ -38,6 +38,8 @@ class Api::TimeSlotsController < ApplicationController
       time_slot.end_time = params[:end_time] || time_slot.end_time
       time_slot.end_time = Time.parse(time_slot.end_time)
       time_slot.length = params[:length] || time_slot.length
+      time_slot.notes = params[:notes] || time_slot.notes
+
       if current_user.type == "Director"
         time_slot.sort = params[:sort].to_i || time_slot.sort
         if ["cast", "callback"].include?(time_slot.sort)  && params[:roles] #if actor is called back or cast for specific roles (array of IDs)

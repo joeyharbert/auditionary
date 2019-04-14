@@ -15,3 +15,5 @@ json.roles do
     json.name role.name
   end
 end
+
+json.notes @time_slot.notes
