@@ -49,12 +49,21 @@ class Api::ShowsController < ApplicationController
 
         if new_roles
           new_roles.each do |new_role|
-            old_role = ShowRole.find(new_role["id"])
-            old_role.name = new_role["name"] || old_role.name
-            old_role.description = new_role["description"] || old_role.description
-            old_role.save
+            if new_role["id"]
+              old_role = ShowRole.find(new_role["id"])
+              old_role.name = new_role["name"] || old_role.name
+              old_role.description = new_role["description"] || old_role.description
+              old_role.save
+            else
+              ShowRole.create(
+                name: new_role["name"],
+                description: new_role["description"],
+                show_id: @show.id
+                )
+            end
           end
         end
+        @show = Show.find(params[:id])
         render 'show.json.jbuilder'
       else
         render json: {errors: @show.errors.full_messages}, status: :bad_request
