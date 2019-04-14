@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get '/shows' => 'shows#index'
     post '/shows' => 'shows#create'
     get '/shows/:id' => 'shows#show'
+    patch '/shows/:id' => 'shows#update'
     
     get '/time_slots/:id' => 'time_slots#show'
     patch '/time_slots/:id' => 'time_slots#update'
