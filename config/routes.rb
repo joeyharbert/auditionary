@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     post '/shows' => 'shows#create'
     get '/shows/:id' => 'shows#show'
     patch '/shows/:id' => 'shows#update'
+    delete '/shows/:id' => 'shows#destroy'
     
     get '/time_slots/:id' => 'time_slots#show'
     patch '/time_slots/:id' => 'time_slots#update'
