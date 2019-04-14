@@ -8,3 +8,10 @@ json.actor do
     json.partial! "/api/users/user.json.jbuilder", user: @time_slot.actor
   end
 end
+
+json.roles do
+  json.array! @time_slot.show_roles do |role|
+    json.id role.id
+    json.name role.name
+  end
+end

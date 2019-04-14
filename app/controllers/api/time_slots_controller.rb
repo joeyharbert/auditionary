@@ -27,6 +27,8 @@ class Api::TimeSlotsController < ApplicationController
         time_slot.actor_id = params[:actor_id]
       elsif params[:actor_id]
         time_slot.actor_id = current_user.id
+      else
+        time_slot.actor_id = nil; #if actor is removing themselves from timeslot
       end 
     end
 
@@ -37,8 +39,17 @@ class Api::TimeSlotsController < ApplicationController
       time_slot.end_time = Time.parse(time_slot.end_time)
       time_slot.length = params[:length] || time_slot.length
       if current_user.type == "Director"
-        time_slot.sort = params[:sort] || time_slot.sort
-        if ["cast"]
+        time_slot.sort = params[:sort].to_i || time_slot.sort
+        if ["cast", "callback"].include?(time_slot.sort)  && params[:roles] #if actor is called back or cast for specific roles (array of IDs)
+          roles = params[:roles].split(",")
+
+          roles.each do |id|
+            ShowRoleTimeSlot.create(
+              show_role_id: id,
+              time_slot_id: time_slot.id
+              )
+          end
+        end
         time_slot.audition_day_id = params[:audition_day_id] || time_slot.audition_day_id
       end
 
