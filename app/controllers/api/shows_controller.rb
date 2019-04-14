@@ -31,4 +31,9 @@ class Api::ShowsController < ApplicationController
     @shows = Show.all
     render 'index.json.jbuilder'
   end
+
+  def show
+    @show = Show.find(params[:id])
+    render 'show.json.jbuilder'
+  end
 end
