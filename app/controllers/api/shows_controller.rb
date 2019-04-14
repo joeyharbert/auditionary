@@ -65,15 +65,15 @@ class Api::ShowsController < ApplicationController
   end
 
   def destroy
-    @show = Show.find(params[:id])
+    show = Show.find(params[:id])
 
     if current_user && (current_user.type == "Director")
-      @show.show_roles.each do |role|
+      show.show_roles.each do |role|
         role.destroy
       end
 
-      @show.destroy
-      render json: {message: "#{@show.name} has been deleted."}
+      show.destroy
+      render json: {message: "#{show.name} has been deleted."}
     else
       render json: {}, status: :unauthorized                
     end
