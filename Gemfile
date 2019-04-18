@@ -53,5 +53,6 @@ gem 'jwt'
 gem 'json'
 
 #Carrierwave is for file uploading
-
 gem 'carrierwave', '~> 1.0'
+gem 'fog-aws'
+gem 'figaro'
