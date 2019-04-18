@@ -51,3 +51,7 @@ gem 'http'
 gem 'rack-cors'
 gem 'jwt'
 gem 'json'
+
+#Carrierwave is for file uploading
+
+gem 'carrierwave', '~> 1.0'

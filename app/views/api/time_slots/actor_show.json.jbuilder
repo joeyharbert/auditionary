@@ -8,3 +8,4 @@ json.actor do
     json.last_name @time_slot.actor.last_name
   end
 end
+json.headshot @time_slot.headshot.url
