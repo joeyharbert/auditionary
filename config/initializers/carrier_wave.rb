@@ -1,7 +1,5 @@
 
 require 'carrierwave/orm/activerecord'
-p ENV["aws_access_key_id"]
-p ENV["aws_secret_access_key"]
 
 CarrierWave.configure do |config|
   config.fog_provider = 'fog/aws'                        # required
