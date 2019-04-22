@@ -50,12 +50,8 @@ class Api::AuditionsController < ApplicationController
   end
 
   def index
-    if current_user
-      @auditions = AuditionDay.all
-      render "index.json.jbuilder"     
-    else
-      render json: {}, status: :unauthorized
-    end
+    @auditions = AuditionDay.all
+    render "index.json.jbuilder"     
   end
 
   def show
