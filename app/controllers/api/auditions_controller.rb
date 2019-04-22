@@ -55,12 +55,8 @@ class Api::AuditionsController < ApplicationController
   end
 
   def show
-    if current_user
-      @audition = AuditionDay.find(params[:id])
-      render "show.json.jbuilder"     
-    else
-      render json: {}, status: :unauthorized
-    end
+    @audition = AuditionDay.find(params[:id])
+    render "show.json.jbuilder"     
   end
 
   def update
