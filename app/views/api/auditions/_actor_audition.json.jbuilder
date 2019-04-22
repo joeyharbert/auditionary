@@ -3,6 +3,7 @@ json.name audition.name
 json.length audition.length
 json.requirements audition.requirements
 json.active audition.active
+json.company audition.company
 json.directors do
   json.array! audition.directors.each do |director|
     json.id director.id
@@ -29,7 +30,6 @@ json.time_slots do
     json.length slot.length
     json.start_time slot.start_time
     json.end_time slot.end_time
-    json.sort slot.sort
     json.actor do
       if slot.actor
         json.first_name slot.actor.first_name

@@ -3,6 +3,7 @@ json.name audition.name
 json.length audition.length
 json.requirements audition.requirements
 json.active audition.active
+json.company audition.company
 json.directors do
   json.array! audition.directors.each do |director|
     json.id director.id
