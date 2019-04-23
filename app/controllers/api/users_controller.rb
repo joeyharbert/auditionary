@@ -7,7 +7,8 @@ class Api::UsersController < ApplicationController
         password: params[:password],
         password_confirmation: params[:password_confirmation],
         phone: params[:phone],
-        type: params[:type]
+        type: params[:type],
+        union_status: params[:union_status].to_i
       )
 
     if user.save
