@@ -24,12 +24,12 @@ class Api::TimeSlotsController < ApplicationController
     if current_user
       if (current_user.id == time_slot.actor_id) || ["Director", "Proctor"].include?(current_user.type)   #if current user is owner actor or user is director/proctor
         if params[:actor_id] && ["Director", "Proctor"].include?(current_user.type)
-          time_slot.actor_id = params[:actor_id]
+          time_slot.actor_id = params[:actor_id] || time_slot.actor_id
           time_slot.headshot = params[:file] || nil
 
         elsif params[:file] && (current_user.id == time_slot.actor_id)
           time_slot.headshot = params[:file] || time_slot.headshot
-        else
+        elsif (current_user.id == time_slot.actor_id)
           time_slot.actor_id = nil; #if actor is removing themselves from timeslot
         end 
       end
@@ -48,7 +48,13 @@ class Api::TimeSlotsController < ApplicationController
         time_slot.notes = params[:notes] || time_slot.notes
 
         if current_user.type == "Director"
-          time_slot.sort = params[:sort].to_i || time_slot.sort
+          if params[:sort]
+            if params[:sort] != 'none'
+              time_slot.sort = params[:sort].to_i
+            else
+              time_slot.sort = nil
+            end
+          end
           if ["cast", "callback"].include?(time_slot.sort)  && params[:roles] #if actor is called back or cast for specific roles (array of IDs)
             roles = params[:roles].split(",")
 
@@ -69,7 +75,8 @@ class Api::TimeSlotsController < ApplicationController
       end
 
       if time_slot.save
-        render json: {message: "Timeslot successfully updated"}
+        @time_slot = time_slot
+        render "director_show.json.jbuilder"
       else
         render json: {errors: time_slot.errors.full_messages}, status: :unprocessable_entity
       end
