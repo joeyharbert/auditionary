@@ -84,11 +84,16 @@ class Api::AuditionsController < ApplicationController
   def update
     audition = AuditionDay.find(params[:id])
     if current_user && ((current_user.type == "Director") && audition.directors.include?(current_user))   #if logged in as a director and is one of the directors of the day then update
-      
+
+      params.each do |k, v|
+        if v == ""
+          params[k] = nil
+        end
+      end
+
       audition.requirements = params[:requirements] || audition.requirements
       audition.show_id = params[:show_id] || audition.show_id
       audition.company_id = params[:company_id] || audition.company_id
-      audition.length = params[:length] || audition.length
       audition.name = params[:name] || audition.name
       audition.start_time = params[:start_time] || audition.start_time
       audition.start_time = Time.parse(audition.start_time)
@@ -97,8 +102,7 @@ class Api::AuditionsController < ApplicationController
       audition.active = params[:active] || audition.active
 
       if audition.end_time < audition.start_time #make sure end time is after start time
-        audition.end_time = Time.parse(audition.start_time) + audition.length
-        audition.end_time = Time.parse(audition.end_time)
+        audition.end_time = Time.parse(audition.time_slots.last.end_time)
       end
 
       if params[:directors] #if param is given
