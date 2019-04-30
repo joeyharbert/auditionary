@@ -1,6 +1,7 @@
 json.id audition.id
 json.name audition.name
-json.length audition.length
+json.start_time audition.start_time
+json.end_time audition.end_time
 json.requirements audition.requirements
 json.active audition.active
 json.company audition.company
