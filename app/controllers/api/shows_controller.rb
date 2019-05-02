@@ -5,7 +5,7 @@ class Api::ShowsController < ApplicationController
         name: params[:name],
         description: params[:description]
         )
-      roles = JSON.parse(params[:roles])
+      roles = params[:roles]
       if show.save
         if roles
           roles.each do |role|
@@ -15,7 +15,8 @@ class Api::ShowsController < ApplicationController
               show_id: show.id
               )
           end
-          render json: {message: 'Show created successfully'}, status: :created
+          @show = show
+          render 'show.json.jbuilder', status: :created
         else  #right now we only return an error if there are no roles at all
           render json: {error: "Please create roles for the show"}, status: :bad_request
         end
