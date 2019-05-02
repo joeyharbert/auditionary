@@ -23,4 +23,14 @@ class Api::UsersController < ApplicationController
 
     render 'index.json.jbuilder'
   end
+
+  def show
+    if params[:id].is_a?(Integer)
+      @user = User.find(params[:id])
+    else
+      @user = current_user
+    end
+
+    render 'show.json.jbuilder'
+  end
 end
