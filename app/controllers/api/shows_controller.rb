@@ -46,15 +46,19 @@ class Api::ShowsController < ApplicationController
       @show.description = params[:description] || @show.description
 
       if @show.save
-        new_roles = JSON.parse(params[:roles])
+        new_roles = params[:roles]
 
         if new_roles
           new_roles.each do |new_role|
             if new_role["id"]
               old_role = ShowRole.find(new_role["id"])
-              old_role.name = new_role["name"] || old_role.name
-              old_role.description = new_role["description"] || old_role.description
-              old_role.save
+              if new_role["name"] != ""
+                old_role.name = new_role["name"] || old_role.name
+                old_role.description = new_role["description"] || old_role.description
+                old_role.save
+              else
+                old_role.destroy
+              end
             else
               ShowRole.create(
                 name: new_role["name"],
@@ -63,8 +67,18 @@ class Api::ShowsController < ApplicationController
                 )
             end
           end
+          @show.show_roles.each do |old_role|  #check to see if any roles have been deleted.
+            delete = true;
+            new_roles.each do |new_role|
+              if new_role[:id] == old_role.id
+                delete = false;
+              end
+            end
+            if delete
+              old_role.destroy
+            end
+          end
         end
-        @show = Show.find(params[:id])
         render 'show.json.jbuilder'
       else
         render json: {errors: @show.errors.full_messages}, status: :bad_request
