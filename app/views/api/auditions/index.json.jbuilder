@@ -1,4 +1,4 @@
-json.array! @auditions.each do |audition|
+json.array! @auditions.sort_by {|a| a.start_time}.reverse.each do |audition|
   if audition.directors.include?(current_user)
     json.partial! "director_audition.json.jbuilder", audition: audition
   else
