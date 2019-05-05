@@ -15,6 +15,9 @@ class Api::AuditionsController < ApplicationController
         errors << v
       end
     end
+    if !params[:time_slot_length].is_a? Integer
+      errors << "Please select a whole number as the time slot length."
+    end
 
     if current_user && (current_user.type == "Director")
       if errors != []
