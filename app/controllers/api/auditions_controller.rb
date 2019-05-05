@@ -15,7 +15,7 @@ class Api::AuditionsController < ApplicationController
         errors << v
       end
     end
-    if !/\A\d+\z/.match(params[:time_slot_length])
+    if !/\A\d+\z/.match(params[:time_slot_length]) #expression to check if positive number (or number at all)
       errors << "Please select a whole number as the time slot length."
     end
 

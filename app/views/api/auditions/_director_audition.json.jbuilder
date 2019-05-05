@@ -29,7 +29,7 @@ json.show do
 end
 
 json.time_slots do
-  json.array! audition.time_slots.each do |slot|
+  json.array! audition.time_slots.sort_by {|ts| ts.start_time}.each do |slot|
     json.id slot.id
     json.length slot.length
     json.start_time slot.start_time
