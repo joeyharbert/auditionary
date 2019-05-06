@@ -25,18 +25,22 @@ class Api::TimeSlotsController < ApplicationController
       if (current_user.id == time_slot.actor_id) || ["Director", "Proctor"].include?(current_user.type)   #if current user is owner actor or user is director/proctor
         if params[:actor_id] && ["Director", "Proctor"].include?(current_user.type)
           time_slot.actor_id = params[:actor_id] || time_slot.actor_id
-          time_slot.headshot = params[:file] || nil
+          time_slot.headshot = params[:headshot] || nil
 
-        elsif params[:file] && (current_user.id == time_slot.actor_id)
-          time_slot.headshot = params[:file] || time_slot.headshot
+        elsif params[:headshot] && (current_user.id == time_slot.actor_id)
+          time_slot.headshot = params[:headshot] || time_slot.headshot
         elsif (current_user.id == time_slot.actor_id)
           time_slot.actor_id = nil; #if actor is removing themselves from timeslot
         end 
       end
 
       if !time_slot.actor_id && current_user.type == "Actor" #if there is no actor assigned and the user is an actor
+        p "*" * 50
+        p params[:headshot]
+        p params[:headshot].class
+        p "*" * 50
         time_slot.actor_id = current_user.id
-        time_slot.headshot = params[:file] || time_slot.headshot
+        time_slot.headshot = params[:headshot] || time_slot.headshot
       end
 
       if current_user.type != "Actor"

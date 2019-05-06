@@ -40,5 +40,7 @@ json.time_slots do
         json.partial! "/api/users/user.json.jbuilder", user: slot.actor
       end
     end
+
+    json.headshot slot.headshot
   end
 end
