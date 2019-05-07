@@ -61,7 +61,7 @@ class Api::TimeSlotsController < ApplicationController
             end
           end
 
-          if params[:notes] != []
+          if params[:notes] && params[:notes] != []
             params[:notes].each do |note|
               n = Note.new(time_slot_id: time_slot.id, director_id: current_user.id, content: note)
               n.save
