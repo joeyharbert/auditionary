@@ -42,5 +42,13 @@ json.time_slots do
     end
 
     json.headshot slot.headshot
+
+    json.notes do
+      json.array! slot.notes do |note|
+        json.content note.content
+        json.director note.director
+        json.create_time note.created_at
+      end
+end
   end
 end

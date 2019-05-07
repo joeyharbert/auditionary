@@ -49,7 +49,8 @@ class Api::TimeSlotsController < ApplicationController
         time_slot.end_time = params[:end_time] || time_slot.end_time
         time_slot.end_time = Time.parse(time_slot.end_time)
         time_slot.length = params[:length] || time_slot.length
-        time_slot.notes = params[:notes] || time_slot.notes
+        # time_slot.notes = params[:notes] || time_slot.notes
+
 
         if current_user.type == "Director"
           if params[:sort]
@@ -59,6 +60,14 @@ class Api::TimeSlotsController < ApplicationController
               time_slot.sort = nil
             end
           end
+
+          if params[:notes] != []
+            params[:notes].each do |note|
+              n = Note.new(time_slot_id: time_slot.id, director_id: current_user.id, content: note)
+              n.save
+            end
+          end
+
           if ["cast", "callback"].include?(time_slot.sort)  && params[:roles] #if actor is called back or cast for specific roles (array of IDs)
             roles = params[:roles].split(",")
 

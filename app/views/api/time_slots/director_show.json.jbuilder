@@ -17,4 +17,10 @@ json.roles do
   end
 end
 
-json.notes @time_slot.notes
+json.notes do
+  json.array! @time_slot.notes do |note|
+    json.content note.content
+    json.director note.director
+    json.create_time note.created_at
+  end
+end
