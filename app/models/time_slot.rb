@@ -5,4 +5,5 @@ class TimeSlot < ApplicationRecord
   has_many :show_roles, through: :show_role_time_slots
   enum sort: [:callback, :starred, :cast]
   mount_uploader :headshot, HeadshotUploader
+  has_many :notes
 end
