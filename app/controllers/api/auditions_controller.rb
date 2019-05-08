@@ -19,12 +19,20 @@ class Api::AuditionsController < ApplicationController
       errors << "Please select a whole number as the time slot length."
     end
 
+    if params[:start_time] != "" && params[:end_time] != ""
+      start_time = Time.parse(params[:start_time])
+      end_time = Time.parse(params[:end_time])
+
+      if end_time < start_time
+        errors << "End time must be after start time."
+      end
+    end
+
     if current_user && (current_user.type == "Director")
       if errors != []
         render json: {errors: errors}, status: :bad_request
       else      
-        start_time = Time.parse(params[:start_time])
-        end_time = Time.parse(params[:end_time])
+        
 
         @audition = AuditionDay.new(
           name: params[:name],

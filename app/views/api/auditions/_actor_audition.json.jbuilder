@@ -33,6 +33,7 @@ json.time_slots do
     json.end_time slot.end_time
     json.actor do
       if slot.actor
+        json.id slot.actor.id
         json.first_name slot.actor.first_name
         json.last_name slot.actor.last_name
       end
