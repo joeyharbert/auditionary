@@ -70,7 +70,7 @@ class Api::ShowsController < ApplicationController
           @show.show_roles.each do |old_role|  #check to see if any roles have been deleted.
             delete = true;
             new_roles.each do |new_role|
-              if new_role[:id] == old_role.id
+              if !new_role[:id] || (new_role[:id] == old_role.id)
                 delete = false;
               end
             end
